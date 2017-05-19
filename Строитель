@@ -1,0 +1,91 @@
+using System;
+
+namespace Builder
+{
+    class Program
+    {
+        public static void Main()
+        {
+            Builder builder = new ConcreteBuilder();
+            Foreman foreman = new Foreman(builder);
+            foreman.Construct();
+
+            House house = builder.GetResult();
+
+        }
+    }
+}
+using System;
+
+namespace Builder
+{
+    class Foreman
+    {
+        Builder builder;
+
+        public Foreman(Builder builder)
+        {
+            this.builder = builder;
+        }
+
+        public void Construct()
+        {
+            // Требуется дать команды строителю в правильном порядке.
+            // Сначала строить подвал, потом этаж и в последнюю очередь крышу.
+            builder.BuildBasement();
+            builder.BuildStorey();
+            builder.BuildRoof();
+        }
+    }
+}
+using System;
+
+namespace Builder
+{
+    class Storey
+    {
+        public Storey()
+        {
+            Console.WriteLine("Этаж построен");
+        }
+    }
+}
+using System;
+
+namespace Builder
+{
+    class Roof
+    {
+        public Roof()
+        {
+            Console.WriteLine("Крыша построена");
+        }
+    }
+}
+using System;
+using System.Collections;
+
+namespace Builder
+{
+    class House
+    {
+        ArrayList parts = new ArrayList();
+
+        public void Add(object part)
+        {
+            parts.Add(part);
+        }
+    }
+}
+using System;
+
+namespace Builder
+{
+    class Basement
+    {
+        public Basement()
+        {
+            Console.WriteLine("Подвал построен");
+        }
+    }
+}
