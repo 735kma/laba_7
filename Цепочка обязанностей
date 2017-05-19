@@ -1,0 +1,59 @@
+using System;
+
+namespace Chain
+{
+    class Program
+    {
+        static void Main()
+        {
+            Handler h1 = new ConcreteHandler1();
+            Handler h2 = new ConcreteHandler2();
+
+            h1.Successor = h2;
+            h1.HandleRequest(1);
+            h1.HandleRequest(2);
+        }
+    }
+}
+
+using System;
+
+namespace Chain
+{
+    class ConcreteHandler1 : Handler
+    {
+        public override void HandleRequest(int request)
+        {
+            if (request == 1)
+                Console.WriteLine("One");
+            else if (Successor != null)
+                Successor.HandleRequest(request);
+        }
+    }
+}
+
+using System;
+
+namespace Chain
+{
+    class ConcreteHandler2 : Handler
+    {
+        public override void HandleRequest(int request)
+        {
+            if (request == 2)
+                Console.WriteLine("Two");
+            else if (Successor != null)
+                Successor.HandleRequest(request);
+        }
+    }
+}
+using System;
+
+namespace Chain
+{
+    abstract class Handler
+    {
+        public Handler Successor { get; set; }
+        public abstract void HandleRequest(int request);
+    }
+}
